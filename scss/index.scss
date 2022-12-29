@@ -1,0 +1,110 @@
+@use 'sass:map';
+@use './vars';
+@use './mixins';
+
+@import 'https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap';
+
+*,
+::before,
+::after
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: #{vars.$primary-font}, #{vars.$secondary-fonts};
+  color: #fff;
+}
+
+html
+{
+  font-size: 16px;
+}
+
+html,
+body
+{
+  min-height: 100vh;
+}
+
+body
+{
+  @include mixins.center;
+  perspective: 1100px;
+  overflow: hidden;
+  background: url("../img/Background.jpg") center no-repeat {
+    size: cover;
+  }
+}
+
+#credits
+{
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font: {
+    weight: 400;
+    size: 1.2rem
+  }
+}
+
+.container {
+  @include mixins.center;
+  @include mixins.square(1000px);
+  transform: rotateX(45deg);
+  margin-top: -14rem;
+}
+
+#sun {
+  @include mixins.square(12px);
+  background: #ff0;
+  box-shadow: 0 0 6px #ff0, 0 0 10px #ff0;
+  border-radius: 50%;
+  position: relative;
+
+  &::before {
+    content: 'Sun';
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    transform: translatex(-50%) scaleY(1.5);
+  }
+}
+
+@each $planet in vars.$planets
+{
+  ##{map.get($planet, 'name')}
+  {
+    @include mixins.orbit(
+      map.get($planet, 'name'),
+      map.get($planet, 'orbit-size'),
+      map.get($planet, 'orbit-period'),
+      map.get($planet, 'angle')
+    );
+    @include mixins.planet(
+      map.get($planet, 'name'),
+      map.get($planet, 'orbit-size'),
+      map.get($planet, 'orbit-period'),
+      map.get($planet, 'color'),
+      map.get($planet, 'angle')
+    );
+  }
+}
+
+#asteroid-belt
+{
+  animation: rotate-asteroid-belt linear infinite 80s;
+  position: absolute;
+  width: 33rem;
+  z-index: -1;
+}
+@keyframes rotate-asteroid-belt {
+  from
+  {
+    transform: rotate(0);
+  }
+  
+  to
+  {
+    transform: rotate(360deg);
+  }
+}

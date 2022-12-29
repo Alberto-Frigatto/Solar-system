@@ -1,0 +1,62 @@
+$orbit-color: rgba(#fff, .2);
+$primary-font: ubuntu;
+$secondary-fonts: arial, helvetica, sans-serif;
+
+$planets: (
+  (
+    'name': 'mercury',
+    'orbit-size': 90px,
+    'orbit-period': 6s,
+    'angle': 410,
+    'color': #ddc436
+  ),
+  (
+    'name': 'venus',
+    'orbit-size': 190px,
+    'orbit-period': 10s,
+    'angle': 340,
+    'color': #da6200
+  ),
+  (
+    'name': 'earth',
+    'orbit-size': 280px,
+    'orbit-period': 12s,
+    'angle': 410,
+    'color': #24da00
+  ),
+  (
+    'name': 'mars',
+    'orbit-size': 380px,
+    'orbit-period': 24s,
+    'angle': 330,
+    'color': #da0000
+  ),
+  (
+    'name': 'jupiter',
+    'orbit-size': 550px,
+    'orbit-period': 35s,
+    'angle': 295,
+    'color': #fe0
+  ),
+  (
+    'name': 'saturn',
+    'orbit-size': 690px,
+    'orbit-period': 45s,
+    'angle': 320,
+    'color': #fff674
+  ),
+  (
+    'name': 'uranus',
+    'orbit-size': 790px,
+    'orbit-period': 65s,
+    'angle': 220,
+    'color': #00ffea
+  ),
+  (
+    'name': 'neptune',
+    'orbit-size': 890px,
+    'orbit-period': 80s,
+    'angle': 310,
+    'color': #003cff
+  )
+);

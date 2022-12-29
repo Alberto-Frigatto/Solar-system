@@ -1,0 +1,83 @@
+@use './vars';
+
+@mixin center
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin square($size)
+{
+  width: $size;
+  height: $size;
+}
+
+@mixin rotation-animation($animation-name, $time, $angle)
+{
+  animation: $animation-name linear infinite $time;
+
+  @at-root {
+    @keyframes #{$animation-name} {
+      from
+      {
+        @if $angle > 0
+        {
+          transform: rotate(#{calc($angle - 360)}deg);
+        }
+        @else
+        {
+          transform: rotate(#{calc($angle + 360)}deg) translatex(-50%) scaleY(1.5);
+        }
+      }
+      
+      to
+      {
+        @if $angle > 0
+        {
+          transform: rotate(#{$angle}deg);
+        }
+        @else
+        {
+          transform: rotate(#{$angle}deg) translatex(-50%) scaleY(1.5);
+        }
+      }
+    }
+  }
+}
+
+@mixin orbit($planet, $size, $orbit-period, $angle)
+{
+  position: absolute;
+  width: $size;
+  height: $size;
+  @include rotation-animation(rotate-#{$planet}, $orbit-period, $angle);
+  border: solid 2px vars.$orbit-color {
+    radius: 50%
+  };
+}
+
+@mixin planet($planet, $size, $orbit-period, $color, $angle)
+{
+    &::before {
+    background: $color;
+    box-shadow: 0 0 6px $color, 0 0 10px $color;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    content: "";
+    top: -4px;
+    width: 6px;
+    height: 6px;
+  }
+  &::after {
+    content: "#{$planet}";
+    text-transform: capitalize;
+    position: absolute;
+    top: .1rem;
+    left: 50%;
+    @include rotation-animation(rotate-name-#{$planet}, $orbit-period, $angle * -1);
+    transform-origin: 0% -.5rem;
+  }
+}
